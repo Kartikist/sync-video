@@ -1,28 +1,38 @@
 const http = require('http');
 const url = require('url');
-
-// Store the current time of the video
-let currentTime = 0;
+const fs = require('fs');
 
 const server = http.createServer((req, res) => {
-    if (req.url === '/sync' && req.method === 'POST') {
-      let body = '';
-      req.on('data', (data) => {
-        body += data;
+  const urlData = url.parse(req.url, true);
+  if (urlData.pathname === '/sync') {
+    const videoId = urlData.query.videoId;
+    const timestamp = urlData.query.t;
+    // Save the videoId and timestamp to a file or a database
+    // ...
+    fs.writeFile(`video-${timestamp}.txt`, videoId, (err) => {
+      if (err) throw err;
+    });
+    res.writeHead(301, { Location: `/watch.html?videoId=${videoId}&t=${timestamp}` });
+    res.end();
+  } else if (urlData.pathname === '/watch.html') {
+    // Read the videoId and timestamp from the file or database
+    // ...
+    fs.readFile(`video-${urlData.query.t}.txt`, 'utf8', (err, data) => {
+      if (err) throw err;
+      const videoId = data;
+      // Send the HTML file with the videoId and timestamp
+      fs.readFile('watch.html', 'utf8', (err, data) => {
+        if (err) throw err;
+        data = data.replace('VIDEO_ID', videoId);
+        data = data.replace('TIMESTAMP', urlData.query.t);
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(data);
       });
-      req.on('end', () => {
-        const data = JSON.parse(body);
-        currentTime = data.currentTime;
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ success: true }));
-      });
-    } else if (req.url === '/sync' && req.method === 'GET') {
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ currentTime: currentTime }));
-    } else {
-      res.writeHead(404);
-      res.end();
-    }
+    });
+  } else {
+    res.writeHead(404);
+    res.end();
+  }
 });
 
 const port = 3000;
