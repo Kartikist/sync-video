@@ -6,55 +6,23 @@
 <body>
   <div>
     <input type="text" id="youtube-link" placeholder="Enter YouTube video link here" />
-    <button id="load-video" onclick="loadVideo()">Load Video</button>
+    <button id="load-video" onclick="generateSyncLink()">Generate Sync Link</button>
   </div>
   <div>
-    <div id="player"></div>
+    <input type="text" id="sync-link" placeholder="Share this link with another person" readonly />
   </div>
   <script>
-    var player;
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('player', {
-        events: {
-          'onReady': onPlayerReady
-        }
-      });
-    }
-
-    function onPlayerReady(event) {
-      // Sync playback for multiple users
-      var timestamp = Date.now();
-      var syncUrl = 'https://localhost:3000/sync?t=' + timestamp;
-      fetch(syncUrl)
-        .then(function(response) {
-          return response.text();
-        })
-        .then(function(data) {
-          var syncData = JSON.parse(data);
-          var currentTime = syncData.currentTime;
-          player.seekTo(currentTime, true);
-          setInterval(function() {
-            var currentTime = player.getCurrentTime();
-            fetch(syncUrl, {
-              method: 'POST',
-              body: JSON.stringify({ currentTime: currentTime }),
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            });
-          }, 1000);
-        });
-    }
-    function loadVideo(){
-        var link = document.getElementById("youtube-link").value;
-        var videoId = link.split('v=')[1];
-        var ampersandPosition = videoId.indexOf('&');
-        if(ampersandPosition !== -1) {
-            videoId = videoId.substring(0, ampersandPosition);
-        }
-        player.loadVideoById(videoId);
+    function generateSyncLink() {
+      const videoLink = document.getElementById("youtube-link").value;
+      const videoId = videoLink.split('v=')[1];
+      const ampersandPosition = videoId.indexOf('&');
+      if(ampersandPosition !== -1) {
+        videoId = videoId.substring(0, ampersandPosition);
+      }
+      const timestamp = Date.now();
+      const syncUrl = `https://kartikist.github.io/sync?videoId=${videoId}&t=${timestamp}`;
+      document.getElementById("sync-link").value = syncUrl;
     }
   </script>
-  <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>
