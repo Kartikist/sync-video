@@ -1,95 +1,40 @@
+<html>
+<head>
+	<title>Happy Birthday</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="script.js"></script>
+</head>
+<body>
+	<h1>Happy Birthday Sailushaaaa!</h1>
+	<div class="confetti-container">
+		<div class="confetti"></div>
+		<div class="confetti"></div>
+		<div class="confetti"></div>
+		<div class="confetti"></div>
+		<div class="confetti"></div>
+		<div class="confetti"></div>
+		<div class="confetti"></div>
+		<div class="confetti"></div>
+		<div class="confetti"></div>
+		<div class="confetti"></div>
+	</div>
+</body>
+</html>
+
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
     <title>Happy Birthday!</title>
-    <style>
-      body {
-        background-color: #E4EDF4;
-        font-family: Arial, sans-serif;
-        font-size: 3em;
-        color: #f2f2f2;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-
-      .text-container {
-        position: relative;
-      }
-
-      .text-container span {
-        display: inline-block;
-        transform-origin: center;
-        animation-name: zoom;
-        animation-duration: 1s;
-        animation-iteration-count: infinite;
-        animation-direction: alternate;
-        animation-timing-function: ease-in-out;
-      }
-
-      .text-container span:nth-of-type(1) {
-        color: #e4b4b4;
-        animation-delay: 0.2s;
-      }
-
-      .text-container span:nth-of-type(2) {
-        color: #f6c75d;
-        animation-delay: 0.4s;
-      }
-
-      .text-container span:nth-of-type(3) {
-        color: #b2d8d8;
-        animation-delay: 0.6s;
-      }
-
-      @keyframes zoom {
-        from {
-          transform: scale(1);
-        }
-        to {
-          transform: scale(1.2);
-        }
-      }
-
-      .confetti-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <div class="text-container">
-      <span>H</span>
-      <span>A</span>
-      <span>P</span>
-      <span>P</span>
-      <span>Y</span>
-      <span>&nbsp;</span>
-      <span>B</span>
-      <span>I</span>
-      <span>R</span>
-      <span>T</span>
-      <span>H</span>
-      <span>D</span>
-      <span>A</span>
-      <span>Y</span>
-      <span>!</span>
+    <div class="container">
+      <div class="content">
+        <h1>Happy Birthday!</h1>
+        <button id="loveButton">Click me</button>
+        <p id="loveText"></p>
+      </div>
     </div>
-    <div class="confetti-container"></div>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1/dist/canvas-confetti.min.js"></script>
-    <script>
-      // Add confetti effect
-      var confettiSettings = {
-        target: 'confetti-container'
-      };
-      var confetti = new ConfettiGenerator(confettiSettings);
-      confetti.render();
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
