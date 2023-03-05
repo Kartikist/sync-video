@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Happy Birthday</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="script.js"></script>
-</head>
-<body>
-	<h1>Happy Birthday!</h1>
-	<div class="confetti-container">
-		<div class="confetti"></div>
-		<div class="confetti"></div>
-		<div class="confetti"></div>
-		<div class="confetti"></div>
-		<div class="confetti"></div>
-		<div class="confetti"></div>
-		<div class="confetti"></div>
-		<div class="confetti"></div>
-		<div class="confetti"></div>
-		<div class="confetti"></div>
-	</div>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <title>Happy Birthday</title>
+    <style>
+      body {
+        background-color: #fafafa;
+        text-align: center;
+        font-family: sans-serif;
+        font-size: 24px;
+      }
+
+      .confetti-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <h1>Happy Birthday!</h1>
+  </body>
 </html>
